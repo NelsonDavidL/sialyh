@@ -1,0 +1,109 @@
+<html>
+<title>SIAL&H</title>
+
+<head>
+
+  {% load static %}
+
+  <head>
+    {% load static %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{% static 'adminlte-3.2.0/plugins/fontawesome-free/css/all.min.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'adminlte-3.2.0/css/adminlte.css' %}">
+
+    <link rel = "shortcut icon"   href = "{% static 'favicon.ico' %}" >
+  </head>
+
+<body class="hold-transition layout-top-nav">
+
+  </head>
+  <hr>
+  <body>
+    <div style="text-align: center; margin-top: 10px;">
+      <div style="text-align: center; margin-top: 10px;">
+        <div class="button-container-base">
+          <h1 class="site-heading text-center text-black d-none d-lg-block"
+            style="margin-bottom: 0px; margin-top: 20px;">
+            <span class="site-heading-lower"> Sistema de información administrativo <br> L&H
+            </span>
+          </h1>
+        </div>
+        <div style="text-align: right;">
+          <div style="color: black; text-align: right; margin-right: 10px;">
+            {% if user.is_authenticated %}
+
+            Bienvenido,  &nbsp; &nbsp; {{user.first_name}} &nbsp; &nbsp;
+            {% if user.is_superuser %}
+            <a href="{% url 'admin:index'%}" style="color: black;" target="_blank" title="Módulo administrativo">
+              <i class="fas fa-cog"></i>
+            </a> &nbsp; &nbsp;
+            {% endif %}
+			
+			<a href="{% url 'logout'%}" style="color: black;">Cerrar sesión</a>
+			
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+      <div class="container">
+        <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item {% if request.path == '/human_resources/' %}active{% endif %} px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href={% url 'human_resources' %}>Recursos Humanos</a>
+              </li>
+            <li class="nav-item {% if request.path == '/billing/' %}active{% endif %} px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href={% url 'billing' %}>Facturación</a>
+            </li>
+            <li class="nav-item {% if request.path == '/accounting/' %}active{% endif %} px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href={% url 'accounting' %}>Contabilidad</a>
+            </li>
+            <li class="nav-item {% if request.path == '/market/' %}active{% endif %} px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href={% url 'market' %}>Mercadeo</a>
+            </li>
+          <!-- <li class="nav-item active px-lg-4">
+            <a class="nav-link text-uppercase text-expanded">Modulo5</a>
+          </li> -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- Contenido cambiante-->
+    {% block content %}
+
+
+    {% endblock %}
+
+    <!-- REQUIRED SCRIPTS -->
+
+    <!-- jQuery -->
+    <script src="{% static 'adminlte-3.2.0/plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'adminlte-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'adminlte-3.2.0/js/adminlte.min.js' %}"></script>
+
+
+
+  </body>
+
+
+</html>

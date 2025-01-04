@@ -1,0 +1,104 @@
+{% extends "sialyhapp/base2.html" %}
+
+{% load static %}
+
+{% block javascript %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+<script src="{% static 'datatables-1.10.20/js/dataTables.bootstrap4.js' %}"></script>
+<script src="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.js' %}"></script>
+<script src="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.js' %}"></script>
+<link rel="stylesheet" href="{% static 'datatables-1.10.20/css/dataTables.bootstrap4.css' %}" />
+<link rel="stylesheet"
+    href="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.css' %}" />
+
+<script type="application/javascript">
+    if ($.fn.DataTable.isDataTable('#tbl_bond')) {
+        $('#tbl_bond').DataTable().destroy();
+    }
+
+    $('#tbl_bond').DataTable({
+        responsive: true,
+        autoWidth: false
+    });
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<html>
+
+<body>
+    <hr>
+    <div>
+        <div class="container-title">
+            <div class="divTitle">
+                <h1>Bonos de separado</h1>
+            </div>
+            <div class="divReturn">
+                <a href="{% url 'income' %}" class="btn" style="background-color: grey; border-color: grey;" title="Volver">
+                        <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+            Información enviada correctamente
+        </div>
+        {% endfor %}
+        {% endif %}
+        <hr>
+        <section>
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <table id="separated_bonuses">
+                                {{ formsb.as_table }}
+                            </table>
+                            <button type="submit" class="btn btn-success" style="background-color: grey; border-color: grey"
+                                method="POST">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="width: 100%;">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table" id="tbl_bond">
+                            <thead>
+                                <tr>
+                                    <th><strong>Número de bono</strong></th>
+                                    <th><strong>Fecha de factura</strong></th>
+                                    <th><strong>Valor del bono</strong></th>
+                                    <th><strong>Archivo</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for bond in formsb_list %}
+                                {% if bond.enabled %}
+                                <tr>
+                                    <td> {{ bond.numBond }} </td>
+                                    <td> {{ bond.dateInvoice }} </td>
+                                    <td> $ {{ bond.valBond }} </td>
+                                    <td><a href="{{ bond.file.url }}" target="_blank">{{ bond.file.name }}</a></td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </section>
+    </div>
+    <hr>
+
+</body>
+
+</html>
+{% endblock %}

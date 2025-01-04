@@ -1,0 +1,132 @@
+{% extends "sialyhapp/base2.html" %}
+
+{% load static %}
+
+<head>
+    <!--Block head-->
+    {% block head %}
+    <script src="{% static 'vendor/jquery/jquery.js' %}"></script>
+    {% endblock %}
+    
+</head>
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="container-title">
+                <div class="divTitle">
+                    <h1>Solicitud de compra</h1>
+                </div>
+                <div class="divReturn">
+                    <a href="{% url 'applications' %}" title="Facturas manuales" class="btn" style="background-color: grey; border-color: grey;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="container-fluid" style="width: 100%;">
+                    <div class="card">
+                        <div class="card-body">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><b><label for="name">NOMBRE:</label></b></td>
+                                        <td><input type="text" id="name" name="name" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><label for="idCard">CÉDULA:</label></b></td>
+                                        <td><input type="number" id="idCard" name="idCard" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><label for="date">FECHA:</label></b></td>
+                                        <td><input type="date" id="date" name="date" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><label>Descuento:</label></b></td>
+                                        <td><b>35%</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><label for="subtotal">Subtotal:</label></b></td>
+                                        <td><input type="number" id="id_subtotal" name="subtotal" readonly required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><label for="total">Total:</label></b></td>
+                                        <td><input type="number" id="id_total" name="total" readonly required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><label for="authorization">Autorización de descuento:</label></b></td>
+                                        <td><input type="checkbox" id="authorization" name="authorization" required></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid" style="width: 100%; margin-top: 2%;">
+                    <div class="card">
+                        <div class="card-body" id="formContainer">
+                            <div class="table-responsive" id="formulario">
+                                <table class="table-products">
+                                    <tr>
+                                        <td><b><label for="reference">Referencia:</label></b></td>
+                                        <td><input type="text" id="id_reference" name="reference" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><label for="detail">Detalle:</label></b></td>
+                                        <td><input type="text" id="id_detail" name="detail" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><label for="amount">Cantidad:</label></b></td>
+                                        <td><input type="number" id="id_amount" name="amount" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><label for="unitVal">Valor unitario:</label></b></td>
+                                        <td><input type="number" id="id_unitVal" name="unitVal" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><label for="totalVal">Valor total:</label></b></td>
+                                        <td><input type="number" id="id_totalVal" name="totalVal" readonly required></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button id="addForm" type="button" style="background-color: grey; border-color: grey; border: 1px solid transparent; border-radius: 0.25rem;">
+                                <i class="fas fa-duotone fa-plus"></i> &nbsp; Añadir producto
+                            </button>
+                            <button id="removeForm" type="button" style="background-color: grey; border-color: grey; border: 1px solid transparent; border-radius: 0.25rem;">
+                                <i class="fas fa-duotone fa-minus"></i> &nbsp; Eliminar último producto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid" style="width: 100%; margin-top: 2%;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1>Firma</h1>
+                            <canvas id="canvas" style="margin-top: 2%; border: 1px solid #000;" required></canvas>
+                            <input type="hidden" id="signatureInput" name="signature" required>
+                            <div class="card-footer">
+                                <button id="clearBtn" type="button" style="background-color: grey; border-color: grey; border: 1px solid transparent; border-radius: 0.25rem;">Limpiar</button>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" style="background-color: grey; border-color: grey;" type="submit" method="POST">Enviar solicitud</button>
+            </form>
+        </div>
+    </div>
+</section>
+<body>
+    <script src="{% static 'JavaScript/Scripts.js' %}"></script>
+</body>
+</html>
+
+{% endblock %}

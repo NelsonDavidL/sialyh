@@ -1,0 +1,136 @@
+{% extends "sialyhapp/base2.html" %}
+
+{% load static %}
+
+<head>
+    <!--Block head-->
+    {% block head %}
+
+
+    {% endblock %}
+    
+</head>
+
+
+{% block content %}
+
+<html>
+<body>
+
+    <section class="content">
+        <div class="container-title">
+            <div class="divTitle">
+                <h1>Solicitud de descuento por nómina</h1>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="invoice p-3 mb-3">
+                <div class="container-fluid" style="text-align: center;">
+                    <h1>COTIZACIÓN DESCUENTO DE MERCANCÍAS</h1>
+                    <P> <strong> NOTA: </strong> Esta mercancía es para el uso exclusivo del empleado al servicio de SARALUZ S.A.S o de sus
+                        familiares (padres, cónyuge e hijos). Si se comprobase un destino diferente al mencionado será causal de Cancelación 
+                        del contrato por justa causa.
+                    </P>
+                </div>
+                <div class="container-fluid">
+                    <div class="container-fluid">
+                        <table>
+                            {% for application in formapp %}
+                            <tr>
+                                <th> <Strong> NOMBRE: </Strong></th>
+                                <td>{{application.name}}</td>
+                            </tr>
+                            <tr>
+                                <th><strong> CEDULA: </strong></th>
+                                <td>{{application.idCard}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <hr>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><strong>Ref.</strong></th>
+                                    <th><strong>Detalle</strong></th>
+                                    <th><strong>Cantidad</strong></th>
+                                    <th><strong>Vr. Unitario</strong></th>
+                                    <th><strong>Vr. Total</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for detapplication in formdet %}
+                                <tr>
+                                    <td>
+                                        {{detapplication.reference}}
+                                    </td>
+                                    <td>
+                                        {{detapplication.detail}}
+                                    </td>
+                                    <td>
+                                        {{detapplication.amount}}
+                                    </td>
+                                    <td>
+                                        $ {{detapplication.unitVal}}
+                                    </td>
+                                    <td>
+                                        $ {{detapplication.totalVal}}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% for applicationVal in formapp %}
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Sub Total:</th>
+                                    <td>$ {{ applicationVal.subtotal}}</td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Total:</th>
+                                    <td>$ {{ applicationVal.total}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% for applicationsign in formapp %}
+                        <table class="table table-bordered" style="border: 0px solid #ffffff;">
+                            <tr>
+                                <th style="text-align: right;border: 0px solid #ffffff;">Fecha: </th>
+                                <td style="border: 0px solid #ffffff;">{{applicationsign.date}}</td>
+                                <th style="text-align: right;border: 0px solid #ffffff;">Vo.Bo.Of.</th>
+                                <td style="border: 0px solid #ffffff;">{{applicationsign.user_approved.first_name}} &nbsp; {{applicationsign.user_approved.last_name}} </td>
+                                <th style="text-align: right;border: 0px solid #ffffff;">Almacen:</th>
+                                <td style="border: 0px solid #ffffff;">{{applicationsign.user}}</td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: right;border: 0px solid #ffffff;">Firma: </th>
+                                <td style="border: 0px solid #ffffff; max-width: 0px;"><img src="data:image/png;base64,{{ signature }}"></td>
+                                <th style="text-align: right;border: 0px solid #ffffff;">Descuento:</th>
+                                <td style="border: 0px solid #ffffff;">35%</td>
+                            </tr>
+                        </table>
+                        {% if not applicationsign.approved %}
+                        <table class="table table-bordered" style="border: 0px solid #ffffff;">
+                            <tr>
+                                <td style="border: 0px solid #ffffff; text-align: right;">
+                                    <a href="{% url 'approve_application' applicationsign.id %}"><button type="button" style="background-color: grey; border-color: grey; border: 1px solid transparent; border-radius: 0.25rem;">Aprobado</button></a>
+                                </td>
+                                <td style="border: 0px solid #ffffff;">
+                                    <a href="{% url 'disable_application' applicationsign.id %}"><button type="button" style="background-color: grey; border-color: grey; border: 1px solid transparent; border-radius: 0.25rem;">No aprobado</button></a>
+                                </td>
+                            </tr>
+                        </table>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "sialyhapp/base2.html" %}
+
+{% load static %}
+
+<head>
+    <!--Block head-->
+    {% block head %}
+
+
+    {% endblock %}
+    
+</head>
+
+
+{% block content %}
+<html>
+    <html>
+        <body>
+            <hr>
+            <section>
+                <div class="container-title" >
+                    <div  class="divTitle" style="text-align: center;">
+                        <h1>Bonos de licitación</h1>
+                    </div>
+                    <div class="divReturn">
+                        <a href="{% url 'billing' %}" title="Volver" class="btn" style="background-color: grey; border-color: grey;">
+                            <i class="fas far fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <section class="content">
+                <div class="container-fluid"  style="width: 100%;">
+                    <div class="row" style="justify-content: center;">
+                        {% if perms.billing.view_list_bind_bonds %}
+                        <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                            <div class="card" style="margin: 1rem; max-width: min-content;">
+                                <div class="card-body" style="text-align: center;">
+                                    <a href="{% url 'bind_bond_list' %}" title="Busqueda por cédula">
+                                        <img src="{% static 'img/id_card.png' %}" width="80px"></img>
+                                    </a>
+                                </div>
+                                <div class="card-footer"style="text-align: center;">
+                                    <p style="color: black;">Lista de bonos</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if perms.billing.can_upload_bonds %}
+                        <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                            <div class="card" style="margin: 1rem; max-width: min-content;">
+                                <div class="card-body" style="text-align: center;">
+                                    <a href="{% url 'upload_bonds' %}" title="Cargar bonos">
+                                        <img src="{% static 'img/upload_list.png' %}" width="80px"></img>
+                                    </a>
+                                </div>
+                                <div class="card-footer"style="text-align: center;">
+                                    <p style="color: black;">Cargar bonos</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if perms.billing.can_management_bonds %}
+                        <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                            <div class="card" style="margin: 1rem; max-width: min-content;">
+                                <div class="card-body" style="text-align: center;">
+                                    <a href="{% url 'bond_management' %}" title="Gestión de bonos">
+                                        <img src="{% static 'img/sep_bond.png' %}" width="80px"></img>
+                                    </a>
+                                </div>
+                                <div class="card-footer"style="text-align: center;">
+                                    <p style="color: black;">Gestión de bonos</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        </body>
+    </html>
+    
+
+</html>
+{% endblock %}
+
+<!--Bloque de listado-->
+{% block listing %}
+
+
+{% endblock %}

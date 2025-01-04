@@ -1,0 +1,73 @@
+{% extends "sialyhapp/base2.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<html>
+
+<body>
+    <hr>
+    <div>
+        <div class="container-title">
+            <div class="divTitle">
+                <h1>Cargue de bonos de licitación</h1>
+            </div>
+            <div class="divReturn">
+                <a href="{% url 'bid_bonds' %}" title="Volver" class="btn" style="background-color: grey; border-color: grey;">
+                        <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+        {% if messages %} 
+            {%for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        <hr>
+        <section>
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <h5><b> Cargar bonos </b></h5>
+                            <hr>
+                            <table>
+                                {{ form.as_p }}
+                            </table>
+                            <button type="submit" class="btn btn-success" style="background-color: grey; border-color: grey" method="POST">
+                                Cargar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                            <h5><b> Exportar datos </b></h5>
+                            <hr>
+                            <a href="{% url 'export_bonds' %}" type="btn" class="btn btn-success" style="background-color: grey; border-color: grey">
+                                Exportar base actual
+                            </a>
+                            <a href="{% url 'truncate_bonds' %}" type="btn" class="btn btn-success" style="background-color: grey; border-color: grey">
+                                Eliminar base
+                            </a>
+                        </form> 
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <hr>
+    
+</body>
+
+
+
+</html>
+{% endblock %}

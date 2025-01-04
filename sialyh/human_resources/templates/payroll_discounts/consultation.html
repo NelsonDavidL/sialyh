@@ -1,0 +1,78 @@
+{% extends "sialyhapp/base2.html" %}
+
+{% load static %}
+
+<head>
+    <!--Block head-->
+    {% block head %}
+    <script src="{% static 'vendor/jquery/jquery.js' %}"></script>
+    {% endblock %}
+    
+</head>
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="container-title">
+                <div class="divTitle">
+                    <h1>Consulta de solicitudes</h1>
+                </div>
+                <div class="divReturn">
+                    <a href="{% url 'human_resources' %}" title="Volver" class="btn" style="background-color: grey; border-color: grey;">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="container-fluid" style="width: 100%;">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><strong>Solicitud</strong></th>
+                                    <th><strong>Empleado</strong></th>
+                                    <th><strong>Estado</strong></th>
+                                    <th><strong>Ver</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for application in formapp %}
+                                <tr>
+                                    <td> {{ application.id }} </td>
+                                    <td> {{ application.name }} </td>
+                                    <td>
+                                        {% if application.approved %}
+                                            Aprobado
+                                        {% elif not application.enabled %}
+                                            No aprobado
+                                        {% else %}
+                                            Pendiente
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if application.approved %}
+                                        <a href="{% url 'approval' application.id %}" title="Ver solicitud" target="_blank" class="btn" style="background-color: grey; border-color: grey;">
+                                            <i class="fas fa-search"></i>
+                                        </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+<script src="{% static 'JavaScript/Scripts.js' %}"></script>
+
+</body>
+</html>
+
+{% endblock %}

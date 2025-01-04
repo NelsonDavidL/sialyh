@@ -1,0 +1,51 @@
+{% extends "sialyhapp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<html>
+
+<body>
+    <hr>
+    <section class="content">
+        <div class="container-fluid" style="width: 100%;">
+            <H1></H1>
+            <div class="row" style="justify-content: center;">
+                    {% if perms.sialyhapp.view_incomes %}
+                    <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                        <div class="card" style="margin: 1rem; max-width: min-content;">
+                            <div class="card-body" style="text-align: center;">
+                                <a href="{% url 'income_accounting' %}" title="Ingreso de documentos">
+                                    <img src="{% static 'img/upload.png' %}" width="80px" alt="Ingreso de documentos"></img>
+                                </a>
+                            </div>
+                            <div class="card-footer" style="text-align: center;">
+                                <p style="color: black;">Ingreso</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if perms.sialyhapp.view_listings %}
+                    <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                        <div class="card" style="margin: 1rem; max-width: min-content;">
+                            <div class="card-body" style="text-align: center;">
+                                <a href="{% url 'listings_accounting' %}" title="Listado de documentos">
+                                    <img src="{% static 'img/listado.png' %}" width="80px" alt="Listado de documentos"></img>
+                                </a>
+                            </div>
+                            <div class="card-footer" style="text-align: center;">
+                                <p style="color: black;">Listados</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+
+{% endblock %}

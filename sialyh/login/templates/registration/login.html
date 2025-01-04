@@ -1,0 +1,62 @@
+<html>
+<title>SIAL&H</title>
+<head>
+
+    {% load static %}
+
+    <!-- Bootstrap -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+     <!-- Fonts -->
+    
+     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"> 
+     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+     
+
+    <!-- Styles -->
+    <link href="{% static 'css/gestion.css' %}" rel="stylesheet">
+    
+    <link rel = "shortcut icon"   href = "{% static 'favicon.ico' %}" >
+
+  </head>
+
+<body>
+<div class="container {% if request.path == '/' %}{% endif %}">
+    <div class="container" style="padding-bottom: 0px;">
+        <h1 class="site-heading text-center text-black d-none d-lg-block">
+            <span class="site-heading-lower">
+              Sistema de información administrativo <br> L&H
+            </span>
+        </h1>
+    </div>
+
+<!-- Contenido cambiante-->
+    {% load crispy_forms_tags %}
+    <form method="post" action="" style="color: black;">
+        {% csrf_token %}
+        <div style="width: 25%; margin: auto;">
+            {{form|crispy}}
+            <div style="text-align: center; color: red">
+                {% if messages %}
+                  {% for message in messages %}
+                    <span class ="alert alert-{{mensaje.tags}}">{{message}}</span>
+                  {% endfor %}
+                {% endif %}
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" class ="btn btn-success"style= "width: 150px; background-color: grey; border-color: grey">Login</button>
+            </div>
+            <div style="text-align: center; margin-top: 2%;">
+                <a href="{% url 'rem_password'%}">Recordar contraseña</a>
+            </div>
+        </div>
+    </form>
+
+    <!-- Bootstrap -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</div>
+
+</body>
+
+</html>

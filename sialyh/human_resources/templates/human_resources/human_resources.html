@@ -1,0 +1,65 @@
+{% extends "sialyhapp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<html>
+
+<body>
+    <hr>
+    <section class="content">
+        <div class="container-fluid" style="width: 100%;">
+            <H1></H1>
+            <div class="row" style="justify-content: center;">
+                    {% if perms.human_resources.view_solicitudes %}
+                    <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                        <div class="card" style="margin: 1rem; max-width: min-content;">
+                            <div class="card-body" style="text-align: center;">
+                                <a href="{% url 'applications' %}" title="Solicitudes">
+                                    <img src="{% static 'img/applications.png' %}" width="80px" alt="Solicitudes"></img>
+                                </a>
+                            </div>
+                            <div class="card-footer" style="text-align: center;">
+                                <p style="color: black;">Solicitudes</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if perms.human_resources.view_approvals %}
+                    <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                        <div class="card" style="margin: 1rem; max-width: min-content;">
+                            <div class="card-body" style="text-align: center;">
+                                <a href="{% url 'approvals' %}" title="Aprobaciones">
+                                    <img src="{% static 'img/approvals.png' %}" width="80px" alt="Aprobaciones"></img>
+                                </a>
+                            </div>
+                            <div class="card-footer" style="text-align: center;">
+                                <p style="color: black;">Aprobaciones</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if perms.human_resources.view_consultation %}
+                    <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                        <div class="card" style="margin: 1rem; max-width: min-content;">
+                            <div class="card-body" style="text-align: center;">
+                                <a href="{% url 'consultation' %}" title="Consultas">
+                                    <img src="{% static 'img/consultation.png' %}" width="80px" alt="Consultas"></img>
+                                </a>
+                            </div>
+                            <div class="card-footer" style="text-align: center;">
+                                <p style="color: black;">Consultas</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+
+{% endblock %}

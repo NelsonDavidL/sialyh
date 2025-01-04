@@ -1,0 +1,63 @@
+{% extends "sialyhapp/base2.html" %}
+
+{% load static %}
+
+<head>
+    <!--Block head-->
+    {% block head %}
+
+
+    {% endblock %}
+    
+</head>
+
+
+{% block content %}
+<html>
+
+    <html>
+        <body>
+            <hr>
+            <section>
+                <div class="container-title" >
+                    <div  class="divTitle" style="text-align: center;">
+                        <h1>Ingreso de documentos</h1>
+                    </div>
+                    <div class="divReturn">
+                        <a href="{% url 'accounting' %}" title="Volver" class="btn" style="background-color: grey; border-color: grey;">
+                            <i class="fas far fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <section class="content">
+                <div class="container-fluid"  style="width: 100%;">
+                    <div class="row" style="justify-content: center;">
+                        <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                            <div class="card" style="margin: 1rem; max-width: min-content;">
+                                <div class="card-body" style="text-align: center;">
+                                    <a href="{% url 'petty_cash' %}" title="Caja Menor">
+                                        <img src="{% static 'img/petty_cash.png' %}" width="80px"></img>
+                                    </a>
+                                </div>
+                                <div class="card-footer"style="text-align: center;">
+                                    <p style="color: black;">Caja menor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </body>
+    </html>
+    
+
+</html>
+{% endblock %}
+
+<!--Bloque de listado-->
+{% block listing %}
+
+
+{% endblock %}

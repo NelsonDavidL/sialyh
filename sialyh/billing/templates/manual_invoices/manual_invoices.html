@@ -1,0 +1,101 @@
+{% extends "sialyhapp/base2.html" %}
+
+{% load static %}
+
+{% block javascript %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+<script src="{% static 'datatables-1.10.20/js/dataTables.bootstrap4.js' %}"></script>
+<script src="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.js' %}"></script>
+<script src="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.js' %}"></script>
+<link rel="stylesheet" href="{% static 'datatables-1.10.20/css/dataTables.bootstrap4.css' %}" />
+<link rel="stylesheet"
+    href="{% static 'datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.css' %}" />
+
+<script type="application/javascript">
+    if ($.fn.DataTable.isDataTable('#tbl_maninvoices')) {
+        $('#tbl_maninvoices').DataTable().destroy();
+    }
+
+    $('#tbl_maninvoices').DataTable({
+        responsive: true,
+        autoWidth: false
+    });
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<html>
+
+<body>
+    <hr>
+    <div>
+        <div class="container-title">
+            <div class="divTitle">
+                <h1>Facturas manuales</h1>
+            </div>
+            <div class="divReturn">
+                <a href="{% url 'income' %}" title="Volver" class="btn" style="background-color: grey; border-color: grey;">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+            Información enviada correctamente
+        </div>
+        {% endfor %}
+        {% endif %}
+        <hr>
+        <section>
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <table id="manual_invoices">
+                                {{ form.as_table }}
+                            </table>
+                            <button type="submit" class="btn btn-success"
+                                style="background-color: grey; border-color: grey" method="POST">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="width: 100%;">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table" id="tbl_maninvoices">
+                            <thead>
+                                <tr>
+                                    <th><strong>Número de factura</strong></th>
+                                    <th><strong>Fecha de factura</strong></th>
+                                    <th><strong>Archivo</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for invoces in form_list %}
+                                <tr>
+                                    <td> {{ invoces.numInvoice }} </td>
+                                    <td> {{ invoces.dateInvoice }} </td>
+                                    <td><a href="{{ invoces.file.url }}" target="_blank">{{ invoces.file.name }}</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <hr>
+
+</body>
+
+</html>
+{% endblock %}

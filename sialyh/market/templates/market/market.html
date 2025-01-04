@@ -1,0 +1,51 @@
+{% extends "sialyhapp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<html>
+
+<body>
+    <hr>
+    <section class="content">
+        <div class="container-fluid" style="width: 100%;">
+            <H1></H1>
+            <div class="row" style="justify-content: center;">
+                {% if perms.market.view_uploadfile %}
+                    <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                        <div class="card" style="margin: 1rem; max-width: min-content;">
+                            <div class="card-body" style="text-align: center;">
+                                <a href="{% url 'upload_list' %}" title="Cargar listado">
+                                    <img src="{% static 'img/upload_list.png' %}" width="80px" alt="Cargar listados"></img>
+                                </a>
+                            </div>
+                            <div class="card-footer" style="text-align: center;">
+                                <p style="color: black;">Cargar listados</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if perms.market.view_birthdaylist %}
+                    <div class="col-5" style="margin: 1rem; max-width: min-content;">
+                        <div class="card" style="margin: 1rem; max-width: min-content;">
+                            <div class="card-body" style="text-align: center;">
+                                <a href="{% url 'list_birthday' %}" title="Listado de cumpleaños">
+                                    <img src="{% static 'img/birth_list.png' %}" width="80px" alt="Listado de cumpleaños"></img>
+                                </a>
+                            </div>
+                            <div class="card-footer" style="text-align: center;">
+                                <p style="color: black;">Listado de cumpleaños</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+
+{% endblock %}
